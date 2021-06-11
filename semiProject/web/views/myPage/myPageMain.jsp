@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.text.NumberFormat, java.util.List" %>
 <%@ include file="/views/common/header.jsp"%>
 <%
 	NumberFormat nf = NumberFormat.getInstance();
+	List<String> recentP=(List<String>)request.getAttribute("recentP");
 %>
 <section>
     <div id="my_profile">
@@ -21,7 +22,7 @@
             </tr>
         </table>
     </div>
-    <!-- <div id="recent_pd">
+    <div id="recent_pd">
         <h2 class="pe">최근 조회한 상품</h2>
         <ul style="padding:0">
             <li>
@@ -45,7 +46,7 @@
                 </div>
             </li>
         </ul>
-    </div> -->
+    </div>
     <div id="my_menu">
         <ul class="pb" style="padding:0">
             <li>

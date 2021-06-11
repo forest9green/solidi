@@ -14,6 +14,7 @@ import com.newAddress.model.service.NewAddressService;
 import com.newAddress.model.vo.NewAddress;
 import com.order.model.service.OrderService;
 import com.order.model.vo.Order;
+import com.product.model.service.ProductService;
 import com.user.model.service.UserService;
 
 /**
@@ -133,19 +134,33 @@ public class OrderEndServlet extends HttpServlet {
 						}else {
 							result5=1;
 						}
-						System.out.println("result5"+result5);
+						
 						if(result5>0) {
 							//6. 무통장 결제일 경우 무통장결제 테이블에 데이터 삽입
-							System.out.println(payWay.equals("무통장입금"));
+							int result6=0;
+							
 							if(payWay.equals("무통장입금")) {
-								int result6=new OrderService().insertNoBookPay(orderNo,orderName);
+								result6=new OrderService().insertNoBookPay(orderNo,orderName);
 								
-								if(result6>0) {
+							}//무통장 결제 이외의 결제방법 처리(api 적용한 후 가능함)
+							
+							if(result6>0) {
+								//7. 구매된 상품 재고에서 빼기
+								int result7=0;
+								
+								for(int i=0;i<pCodes.length;i++) {
+									result7=new ProductService().minusStock(pCodes[i],Integer.parseInt(amounts[i]));
+									if(result7==0) {
+										break;
+									}
+								}
+								
+								if(result7>0) {
 									msg="주문이 완료되었습니다.";
 									loc="/myPage/completePayNoBook";
 									queryString="?orderNo="+orderNo;
 								}
-							}//무통장 결제 이외의 결제방법 처리(api 적용한 후 가능함)
+							}
 						}
 					}
 				}

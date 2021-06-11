@@ -72,7 +72,7 @@ public class ProductDao {
 				p.setpCode(rs.getString("p_code"));
 				p.setCateCode(rs.getString("cate_code"));
 				p.setPrice(rs.getInt("price"));
-				p.setStock(rs.getInt("price"));
+				p.setStock(rs.getInt("stock"));
 				p.setpEnrollDate(rs.getDate("p_enroll_date"));
 				p.setDeliveryFee(rs.getInt("delivery_fee"));
 				p.setSize(rs.getString("size"));
@@ -186,7 +186,7 @@ public class ProductDao {
 				p.setpCode(rs.getString("p_code"));
 				p.setCateCode(rs.getString("cate_code"));
 				p.setPrice(rs.getInt("price"));
-				p.setStock(rs.getInt("price"));
+				p.setStock(rs.getInt("stock"));
 				p.setpEnrollDate(rs.getDate("p_enroll_date"));
 				p.setDeliveryFee(rs.getInt("delivery_fee"));
 				p.setSize(rs.getString("size"));
@@ -238,7 +238,7 @@ public class ProductDao {
 				p.setpCode(rs.getString("p_code"));
 				p.setCateCode(rs.getString("cate_code"));
 				p.setPrice(rs.getInt("price"));
-				p.setStock(rs.getInt("price"));
+				p.setStock(rs.getInt("stock"));
 				p.setpEnrollDate(rs.getDate("p_enroll_date"));
 				p.setDeliveryFee(rs.getInt("delivery_fee"));
 				p.setSize(rs.getString("size"));
@@ -256,9 +256,24 @@ public class ProductDao {
 	}
 	
 	
-	
+	public int minusStock(Connection conn, String pCode, int amount) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("minusStock"));
+			pstmt.setInt(1, amount);
+			pstmt.setString(2, pCode);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 }
-
-
-	

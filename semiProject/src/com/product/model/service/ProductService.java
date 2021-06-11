@@ -1,7 +1,9 @@
 package com.product.model.service;
 
 import static com.common.JDBCTemplate.close;
+import static com.common.JDBCTemplate.commit;
 import static com.common.JDBCTemplate.getConnection;
+import static com.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -74,6 +76,16 @@ public class ProductService {
 		List<Product> plist = dao.productList(conn);
 		close(conn);
 		return plist;
+	}
+	
+	
+	public int minusStock(String pCode, int amount) {
+		Connection conn=getConnection();
+		int result=dao.minusStock(conn,pCode,amount);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
 	
 }

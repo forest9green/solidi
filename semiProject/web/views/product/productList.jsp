@@ -34,7 +34,7 @@
 		    	if(!products.isEmpty()) {
 		    		for(Product p:products) {%>
 				        <div class="pro_box">
-				        	<a href="<%=request.getContextPath()%>/product/productDetail?pCode=<%=p.getpCode()%>">
+				        	<a href="<%=request.getContextPath()%>/product/productDetail?userId=<%=userId %>&pCode=<%=p.getpCode()%>">
 					            <img src="<%=request.getContextPath()%>/images/product/<%=p.getCateCode()%>/<%=p.getpCode()%>-1.jpg">
 				        	</a>
 				            <div class="sp_container">
@@ -52,6 +52,9 @@
 				                    <div class="pPrice">
 				                        <p1 class="pb"><%=nf.format(p.getPrice()) %>원</p1>
 				                    </div>
+				                    <%if(p.getStock()==0) {%>
+				                    	<div style="color:red;font-size:12px">(일시 품절)</div>
+				                    <%} %>
 				                </div>
 				                <div class="pro_btn">
 				                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="cart" viewBox="0 0 16 16" title="<%=p.getpCode()%>">
@@ -145,6 +148,7 @@
  .sp_name_price{
      display:flex;
      flex-direction: column;
+     align-items: center;
  }
  .sp_name_price>a{
      text-decoration:none;
