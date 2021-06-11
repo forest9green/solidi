@@ -25,33 +25,24 @@
     <div id="recent_pd">
         <h2 class="pe">최근 조회한 상품</h2>
         <ul style="padding:0">
-            <li>
-                <div class="photobox">
-                    <a href=""></a>
-                </div>
-            </li>
-            <li>
-                <div class="photobox">
-                    <a href=""></a>
-                </div>
-            </li>
-            <li>
-                <div class="photobox">
-                    <a href=""></a>
-                </div>
-            </li>
-            <li>
-                <div class="photobox">
-                    <a href=""></a>
-                </div>
-            </li>
+        	<%if(!recentP.isEmpty()) {
+        		for(String pCode:recentP) {%>
+		            <li>
+		                <div class="photobox">
+		                    <a href="<%=request.getContextPath()%>/product/productDetail?userId=<%=loginUser.getUserId() %>&pCode=<%=pCode%>">
+		                    	<img src="<%=request.getContextPath()%>/images/product/<%=pCode.substring(0,2) %>/<%=pCode%>-1.jpg">
+		                    </a>
+		                </div>
+		            </li>
+				<%}
+        	}%>
         </ul>
     </div>
     <div id="my_menu">
         <ul class="pb" style="padding:0">
             <li>
                 <div class="box">
-                    <a href="">
+                    <a href="<%=request.getContextPath()%>/myPage/orderView?userId=<%=loginUser.getUserId() %>">
                         <h3><strong>ORDER</strong></h3>
                         <p style="font-size: 90%;">고객님께서 주문하신 상품의<br>주문내역을 확인할 수 있습니다.</p>
                     </a>
@@ -195,9 +186,14 @@
         margin:0 15px 0 15px;
     }
     #recent_pd .photobox{
-        height:200px;
-        width:170px;
-        border:grey 1px solid;
+        height:240px;
+        width:208px;
+        border:lightgrey 1px solid;
+    }
+    #recent_pd .photobox img{
+    	height:240px;
+        width:208px;
+        object-fit:cover;
     }
     .inquiry_btn{
         width:44px;

@@ -58,7 +58,7 @@
                         <li class="pa"><a href="<%=request.getContextPath()%>/views/member/loginPage.jsp">Order</a></li>
                         <li class="pa"><a href="<%=request.getContextPath()%>/views/member/loginPage.jsp">Cart</a></li>
                      <%}else{ %>
-                     	<li class="pa"><a href="">Order</a></li>
+                     	<li class="pa"><a href="<%=request.getContextPath()%>/myPage/orderView?userId=<%=loginUser.getUserId() %>">Order</a></li>
                         <li class="pa"><a href="<%=request.getContextPath()%>/myPage/cart?userId=<%=loginUser.getUserId()%>">Cart</a></li>
                      <%} %>  
                     </ul>

@@ -35,18 +35,17 @@ public class MyPageMainServlet extends HttpServlet {
 		List<String> recentP=new ArrayList<>();
 		if(cookies!=null) {
 			for(Cookie c : cookies) {
-				if(c.getName().substring(0,1).equals("P")) {
+				if(c.getName().substring(0,1).equals("C")) {
 					pCodes.add(c.getValue());
 				}
 			}
-			System.out.println(pCodes.size());
+			
 			if(pCodes.size()<4) {
-				for(int i=0;i<pCodes.size();i++) {
-					System.out.println(pCodes.get(2));
+				for(int i=1;i<=pCodes.size();i++) {
 					recentP.add(pCodes.get(pCodes.size()-i));
 				}
 			}else {
-				for(int i=0;i<4;i++) {
+				for(int i=1;i<=4;i++) {
 					recentP.add(pCodes.get(pCodes.size()-i));
 				}
 			}
