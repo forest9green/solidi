@@ -6,10 +6,13 @@ import static com.common.JDBCTemplate.getConnection;
 import static com.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
 
 import com.order.model.dao.OrderDao;
 import com.order.model.vo.NoBookPay;
 import com.order.model.vo.Order;
+import com.order.model.vo.OrderList;
 
 public class OrderService {
 	
@@ -67,6 +70,14 @@ public class OrderService {
 		int totalPay=dao.selectTotalPay(conn,orderNo);
 		close(conn);
 		return totalPay;
+	}
+	
+	
+	public Map<String,List<OrderList>> selectOrder(String userId){
+		Connection conn=getConnection();
+		Map<String,List<OrderList>> oList=dao.selectOrder(conn,userId);
+		close(conn);
+		return oList;
 	}
 
 }

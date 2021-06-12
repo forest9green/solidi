@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%
+	String pageBar=(String)request.getParameter("pageBar");
+%>    
 <%@ include file="/views/common/header.jsp"%>
 
 <section>
@@ -10,30 +12,22 @@
             <table id="order_table" class="pa" border=1>
                 <thead>
                     <tr>
-                        <th width=145>주문 일자<br>[주문 번호]</th>
                         <th>상품 정보</th>
-                        <th width=50>수량</th>
-                        <th width=90>구매 금액</th>
-                        <th width=90>배송비</th>
+                        <th width=60>수량</th>
                         <th width=110 >주문 처리 상태</th>
                         <th width=110>취소/교환/반품</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!--
-                        값이 없으면 <tr>보유하고 계신 주문 내역이 없습니다.</tr> 추가
-                        값이 있을 경우 주문번호에 대한 상품 갯수를 받아서 첫 tr에 rowspan에 넣고, 그 갯수만큼 tr생성되게 함
-                        but 첫 행 제외한 tr들의 첫 td는 없어야 함
-                    -->
                     <tr>
-                        <td rowspan="3">0000-00-00<br>[00000000-0]</td>
+                    	<td colspan="4"><b>주문일자[주문번호]</b> : 0000/00/00[00000000-0] / <b>결제 금액</b> : 000,000원</td>
+                    </tr>
+                    <tr>
                         <td>
                             <div class="pInfoDiv">
-                                <img>가구명
+                                <img> 가구명
                             </div>
                         </td>
-                        <td></td>
-                        <td></td>
                         <td></td>
                         <td>
                             <ul class="order_detail_btn">
@@ -49,57 +43,11 @@
                             </ul>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div class="pInfoDiv">
-                                <img>가구명
-                            </div>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <ul class="order_detail_btn">
-                                <li>배송 완료</li>
-                                <li><button>배송 조회</button></li>
-                                <li><button>후기 작성</button></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul class="order_detail_btn">
-                                <li><button>교환/반품</button></li>
-                                <li><button>주문 취소</button></li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="pInfoDiv">
-                                <img>가구명
-                            </div>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <ul class="order_detail_btn">
-                                <li>배송 완료</li>
-                                <li><button>배송 조회</button></li>
-                                <li><button>후기 작성</button></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul class="order_detail_btn">
-                                <li><button>교환/반품</button></li>
-                                <li><button>주문 취소</button></li>
-                            </ul>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
         <div id="o_pagebar" class="pagebar">
-            <span><a href="">1</a></span>
+            <%=pageBar %>
             <!--출력할 데이터 개수에 따라 페이지가 추가되도록 함-->
         </div>
     </div>
@@ -158,19 +106,31 @@
     #order_box>p+h2{
         font-size: 30px;
     }
+    /*pageBar 디자인*/
     .pagebar{
-        width: 100px;
         margin: 50px auto;
+        display:flex;
+        justify-content: center;
     }
-    .pagebar>span{
+    .pagebar>span, .pagebar>a{
         margin:0 6px 0 6px;
     }
-    .pagebar>span a{
+    .pagebar>a{
         text-decoration: none;
+        color:black;
     }
-    .pagebar span>a:hover{
-        color:rgba(123, 209, 159, 0.856);
+    .pagebar>span{
+        color:rgba(123, 209, 159);
     }
+    .pagebar>a:hover{
+        color:rgba(123, 209, 159);
+    }
+    body{
+		margin:0px;
+	}
+	button:hover{
+		cursor:pointer;
+	}
 </style>
 <script></script>
 

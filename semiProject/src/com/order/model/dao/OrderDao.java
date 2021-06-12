@@ -9,11 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.order.model.vo.NoBookPay;
 import com.order.model.vo.Order;
+import com.order.model.vo.OrderList;
 
 public class OrderDao {
 	
@@ -176,6 +181,35 @@ public class OrderDao {
 		}
 		
 		return totalPay;
+	}
+	
+	
+	public Map<String,List<OrderList>> selectOrder(Connection conn, String userId){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<String> orderNos=new ArrayList<>();
+		List<OrderList> list=new ArrayList<>();
+		Map<String,List<OrderList>> oLists=new HashMap<>();
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectOrderNo"));
+			pstmt.setString(1, userId);
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				orderNos.add(rs.getString(1));
+			}
+			
+			pstmt=conn.prepareStatement(prop.getProperty("selectOrderList"));
+			for(String orderNo:orderNos) {
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return oLists;
 	}
 
 }
