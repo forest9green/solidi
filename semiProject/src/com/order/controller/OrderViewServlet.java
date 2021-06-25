@@ -37,7 +37,7 @@ public class OrderViewServlet extends HttpServlet {
 		String userId=request.getParameter("userId");
 		
 		int cPage;
-		int numPerPage=10;
+		int numPerPage=5;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		}catch(NumberFormatException e) {
@@ -45,24 +45,24 @@ public class OrderViewServlet extends HttpServlet {
 		}
 		
 		//1. 아이디로 정보 가져오기(주문번호, 결제금액, 주문일, 상품코드, 수량, 상태)
-		Map<String, List<OrderList>> oList=new OrderService().selectOrder(userId);
+		Map<String, OrderList> oList=new OrderService().selectOrder(userId);
 		
-//		int totalData=new OrderService().selectOrderCount(userId);
-//		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
+		int totalData=new OrderService().selectOrderCount(userId);
+		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
 		
 		int pageBarSize=10;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
 		
 		String pageBar="";
-//		while(!(pageNo>pageEnd||pageNo>totalPage)) {
-//			if(pageNo==cPage) {
-//				pageBar+="<span>"+pageNo+"</span>";
-//			}else {
-//				pageBar+="<a href='"+request.getContextPath()+"/myPage/orderView?userId="+userId+"&cPage="+pageNo+"'>"+pageNo+"</a>";
-//			}
-//			pageNo++;
-//		}
+		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+			if(pageNo==cPage) {
+				pageBar+="<span>"+pageNo+"</span>";
+			}else {
+				pageBar+="<a href='"+request.getContextPath()+"/myPage/orderView?userId="+userId+"&cPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
 
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("oList", oList);

@@ -35,7 +35,9 @@
 		                </div>
 		            </li>
 				<%}
-        	}%>
+        	} else {%>
+        		<li class="pb" style="font-size:small">최근 조회한 상품이 없습니다.</li>
+        	<%} %>
         </ul>
     </div>
     <div id="my_menu">

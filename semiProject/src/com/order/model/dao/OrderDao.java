@@ -184,12 +184,12 @@ public class OrderDao {
 	}
 	
 	
-	public Map<String,List<OrderList>> selectOrder(Connection conn, String userId){
+	public Map<String,OrderList> selectOrder(Connection conn, String userId){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<String> orderNos=new ArrayList<>();
-		List<OrderList> list=new ArrayList<>();
-		Map<String,List<OrderList>> oLists=new HashMap<>();
+		OrderList oList=null;
+		Map<String,OrderList> oLists=new HashMap<>();
 		
 		try {
 			pstmt=conn.prepareStatement(prop.getProperty("selectOrderNo"));
@@ -202,14 +202,45 @@ public class OrderDao {
 			
 			pstmt=conn.prepareStatement(prop.getProperty("selectOrderList"));
 			for(String orderNo:orderNos) {
-				
+				pstmt.setString(1, orderNo);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					oList=new OrderList();
+					oList.setoPayment(rs.getInt("o_payment"));
+				}
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
 		}
 		
 		return oLists;
+	}
+	
+	
+	public int selectOrderCount(Connection conn, String userId) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectOrderCount"));
+			pstmt.setString(1, userId);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return result;
 	}
 
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String pageBar=(String)request.getParameter("pageBar");
+	String pageBar=(String)request.getAttribute("pageBar");
 %>    
 <%@ include file="/views/common/header.jsp"%>
 

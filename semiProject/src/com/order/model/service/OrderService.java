@@ -73,11 +73,19 @@ public class OrderService {
 	}
 	
 	
-	public Map<String,List<OrderList>> selectOrder(String userId){
+	public Map<String,OrderList> selectOrder(String userId){
 		Connection conn=getConnection();
-		Map<String,List<OrderList>> oList=dao.selectOrder(conn,userId);
+		Map<String,OrderList> oList=dao.selectOrder(conn,userId);
 		close(conn);
 		return oList;
+	}
+	
+	
+	public int selectOrderCount(String userId) {
+		Connection conn=getConnection();
+		int result=dao.selectOrderCount(conn,userId);
+		close(conn);
+		return result;
 	}
 
 }
