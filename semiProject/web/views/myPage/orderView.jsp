@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Map, java.util.List, com.order.model.vo.OrderList, java.util.Iterator" %>
 <%
 	String pageBar=(String)request.getAttribute("pageBar");
+	Map<String, List<OrderList>> oList=(Map<String, List<OrderList>>)request.getAttribute("oList");
 %>    
 <%@ include file="/views/common/header.jsp"%>
 
@@ -19,40 +21,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    	<td colspan="4"><b>주문일자[주문번호]</b> : 0000/00/00[00000000-0] / <b>결제 금액</b> : 000,000원</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="pInfoDiv">
-                                <img> 가구명
-                            </div>
-                        </td>
-                        <td></td>
-                        <td>
-                            <ul class="order_detail_btn">
-                                <li>배송 완료</li>
-                                <li><button>배송 조회</button></li><!--상태가 배송 시작일 때부터 활성화-->
-                                <li><button>후기 작성</button></li><!--상태가 배송 완료일 때부터 활성화-->
-                            </ul>
-                        </td>
-                        <td>
-                            <ul class="order_detail_btn">
-                                <li><button>교환/반품</button></li><!--상태가 배송 완료일 때부터 활성화-->
-                                <li><button>주문 취소</button></li><!--상태가 배송 시작 전일 때만 활성화-->
-                            </ul>
-                        </td>
-                    </tr>
+                	<%if(!oList.isEmpty()) {
+                		Iterator it=oList.keySet().iterator();
+                		while(it.hasNext()) {
+                			Object key=it.next();%>
+		                    <tr>
+		                    	<td colspan="4"><b>주문일자[주문번호]</b> : 0000/00/00[<%=key %>] / <b>결제 금액</b> : 000,000원</td>
+		                    </tr>
+                		<%}%>
+		                    <tr>
+		                        <td>
+		                            <div class="pInfoDiv">
+		                                <img> 가구명
+		                            </div>
+		                        </td>
+		                        <td></td>
+		                        <td>
+		                            <ul class="order_detail_btn">
+		                                <li>배송 완료</li>
+		                                <li><button>배송 조회</button></li><!--상태가 배송 시작일 때부터 활성화-->
+		                                <li><button>후기 작성</button></li><!--상태가 배송 완료일 때부터 활성화-->
+		                            </ul>
+		                        </td>
+		                        <td>
+		                            <ul class="order_detail_btn">
+		                                <li><button>교환/반품</button></li><!--상태가 배송 완료일 때부터 활성화-->
+		                                <li><button>주문 취소</button></li><!--상태가 배송 시작 전일 때만 활성화-->
+		                            </ul>
+		                        </td>
+		                    </tr>
+                	<%} %>
                 </tbody>
             </table>
         </div>
         <div id="o_pagebar" class="pagebar">
-            <%=pageBar %>
-            <!--출력할 데이터 개수에 따라 페이지가 추가되도록 함-->
+            <%-- <%=pageBar %> --%>
         </div>
     </div>
 </section>
-<!--section에 적용될 style, script 내용 넣어주세요-->
+
 <style>
     #order_box{
         width:1000px;

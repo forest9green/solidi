@@ -45,7 +45,7 @@ public class OrderViewServlet extends HttpServlet {
 		}
 		
 		//1. 아이디로 정보 가져오기(주문번호, 결제금액, 주문일, 상품코드, 수량, 상태)
-		Map<String, OrderList> oList=new OrderService().selectOrder(userId);
+		Map<String, List<OrderList>> oList=new OrderService().selectOrder(userId,cPage,numPerPage);
 		
 		int totalData=new OrderService().selectOrderCount(userId);
 		int totalPage=(int)Math.ceil((double)totalData/numPerPage);
